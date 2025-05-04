@@ -7,7 +7,7 @@ export const { GET, POST, PUT } = serve({
   functions: [
     syncUserCreation,  // Function for user creation
     syncUserUpdation,  // Function for user updation
-    syncUserDelete     // Function for user deletion
+    syncUserDelete     // Function for user deletio
   ],
 });
 
