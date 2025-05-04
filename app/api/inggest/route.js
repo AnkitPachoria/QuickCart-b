@@ -1,32 +1,14 @@
-import { Inngest } from "inngest";
+import { serve } from "inngest/next";
+import { inngest, syncUserCreation, syncUserDelete, syncUserUpdation } from "@/config/inngest";
 
-// Create inngest client
-export const inngest = new Inngest({ name: "QuickCart" });
+// Create an API that serves the required functions
+export const { GET, POST, PUT } = serve({
+  client: inngest,  // Use the configured inngest client
+  functions: [
+    syncUserCreation,  // Function for user creation
+    syncUserUpdation,  // Function for user updation
+    syncUserDelete     // Function for user deletion
+  ],
+});
 
-// Define functions
-export const syncUserCreation = inngest.createFunction(
-  { id: "user-created" },
-  { event: "user/created" },
-  async ({ event }) => {
-    // your logic
-    return { message: "User created synced" };
-  }
-);
-
-export const syncUserUpdation = inngest.createFunction(
-  { id: "user-updated" },
-  { event: "user/updated" },
-  async ({ event }) => {
-    // your logic
-    return { message: "User updated synced" };
-  }
-);
-
-export const syncUserDelete = inngest.createFunction(
-  { id: "user-deleted" },
-  { event: "user/deleted" },
-  async ({ event }) => {
-    // your logic
-    return { message: "User deleted synced" };
-  }
-);
+// You can add other handlers if necessary, such as DELETE, PATCH, etc.
